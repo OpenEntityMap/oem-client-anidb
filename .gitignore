@@ -1,0 +1,13 @@
+/.cache
+/.coverage
+/.eggs
+/.tox
+/build
+/dist
+/examples/.codernitydb
+/htmlcov
+/test-results.xml
+
+*.egg-info
+*.iml
+*.pyc

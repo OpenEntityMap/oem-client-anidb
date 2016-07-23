@@ -97,6 +97,11 @@ def test_matches_tvdb_episode_mappings(client):
     )
 
 
+def test_matches_tvdb_episode_part(client):
+    assert client['anidb'].to('tvdb').map('1491', EpisodeIdentifier(1, 1, part=1)) == EpisodeMatch({'tvdb': '232511'}, 1, 1, part=1)
+    assert client['anidb'].to('tvdb').map('1491', EpisodeIdentifier(1, 1, part=2)) == EpisodeMatch({'tvdb': '232511'}, 1, 2, part=2)
+
+
 #
 # Invalid / Missing
 #

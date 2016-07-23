@@ -89,7 +89,7 @@ def test_matches_tvdb_episode_mappings(client):
         '1491', EpisodeIdentifier(1, 1, progress=1.5),
         resolve_mappings=False
     ) == EpisodeMatch(
-        {u'tvdb': u'232511'},
+        {'tvdb': '232511'},
         mappings=[
             EpisodeMapping(None, None, '1', '1', {'source': Range(None,  0,  50)}),
             EpisodeMapping(None, None, '1', '2', {'source': Range(None, 50, 100)})

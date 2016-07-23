@@ -1,6 +1,8 @@
 from oem import AbsoluteNumberRequiredError
 from oem.media.movie import MovieIdentifier
 from oem.media.show import EpisodeIdentifier, EpisodeMatch
+from oem_framework.models import EpisodeMapping
+from oem_framework.models import Range
 
 from tests.fixtures import client
 import pytest
@@ -80,6 +82,19 @@ def test_matches_tvdb_episode_timeline(client):
     assert client['anidb'].to('tvdb').map('1491', EpisodeIdentifier(1, 1, progress=76.5)) == EpisodeMatch({'tvdb': '232511'}, 1, 2, progress=53.0)
     assert client['anidb'].to('tvdb').map('1491', EpisodeIdentifier(1, 1, progress=99.5)) == EpisodeMatch({'tvdb': '232511'}, 1, 2, progress=99.0)
     assert client['anidb'].to('tvdb').map('1491', EpisodeIdentifier(1, 1, progress=100.0)) == EpisodeMatch({'tvdb': '232511'}, 1, 2, progress=100.0)
+
+
+def test_matches_tvdb_episode_mappings(client):
+    assert client['anidb'].to('tvdb').map(
+        '1491', EpisodeIdentifier(1, 1, progress=1.5),
+        resolve_mappings=False
+    ) == EpisodeMatch(
+        {'tvdb': '232511'},
+        mappings=[
+            EpisodeMapping(None, None, '1', '1', {'source': Range(None,  0,  50)}),
+            EpisodeMapping(None, None, '1', '2', {'source': Range(None, 50, 100)})
+        ]
+    )
 
 
 #

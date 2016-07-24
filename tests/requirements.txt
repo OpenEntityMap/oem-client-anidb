@@ -1,4 +1,4 @@
-oem-client-provider-package>=1.0.0
+oem-client-provider-package>=1.1.0
 oem-format-json>=1.0.0
 oem-storage-file>=1.0.0
 

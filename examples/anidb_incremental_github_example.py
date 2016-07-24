@@ -32,20 +32,22 @@ def run():
     )
 
     #
-    # Basic
+    # AniDB -> TVDb: Basic
     #
 
-    log.debug("\n%s\nBasic\n%s", '=' * 60, '=' * 60)
+    log.debug("\n%s\nAniDB -> TVDb: Basic\n%s", '=' * 60, '=' * 60)
+
     log.debug(client['anidb'].to('tvdb').map('3',    EpisodeIdentifier(1,  2)))
     log.debug(client['anidb'].to('tvdb').map('38',   EpisodeIdentifier(1,  2)))
     log.debug(client['anidb'].to('tvdb').map('818',  EpisodeIdentifier(0,  1)))
     log.debug(client['anidb'].to('tvdb').map('1041', EpisodeIdentifier(1, 45)))
 
     #
-    # Timeline
+    # AniDB -> TVDb: Timeline
     #
 
-    log.debug("\n%s\nTimeline\n%s", '=' * 60, '=' * 60)
+    log.debug("\n%s\nAniDB -> TVDb: Timeline\n%s", '=' * 60, '=' * 60)
+
     log.debug(client['anidb'].to('tvdb').map('10648', EpisodeIdentifier(1, 1,  progress=34)))
     log.debug(client['anidb'].to('tvdb').map('10648', EpisodeIdentifier(1, 1,  progress=49)))
     log.debug(client['anidb'].to('tvdb').map('10648', EpisodeIdentifier(1, 1,  progress=50)))
@@ -54,14 +56,39 @@ def run():
     log.debug(client['anidb'].to('tvdb').map('10648', EpisodeIdentifier(1, 1,  progress=99)))
     log.debug(client['anidb'].to('tvdb').map('10648', EpisodeIdentifier(1, 1, progress=100)))
 
+    #
+    # AniDB -> TMDb (Movie): Basic
+    #
+
+    log.debug("\n%s\nAniDB -> TMDb (Movie): Basic\n%s", '=' * 60, '=' * 60)
+
+    log.debug(client['anidb'].to('tmdb:movie').map('83'))
+    log.debug(client['anidb'].to('tmdb:movie').map('321'))
+    log.debug(client['anidb'].to('tmdb:movie').map('399'))
+    log.debug(client['anidb'].to('tmdb:movie').map('440'))
+
+    #
     # Movies
+    #
+
     log.debug("\n%s\nMovies\n%s", '=' * 60, '=' * 60)
+
+    # AniDB -> IMDb
     log.debug(client['anidb'].to('imdb').get(       7103))
+
+    # IMDb -> AniDB
     log.debug(client['imdb'].to('anidb').get("tt1663145"))
 
+    #
     # Shows
+    #
+
     log.debug("\n%s\nShows\n%s", '=' * 60, '=' * 60)
+
+    # AniDB -> TVDb
     log.debug(client['anidb'].to('tvdb').get(     3))
+
+    # TVDb -> AniDB
     log.debug(client['tvdb'].to('anidb').get( 70973))
     log.debug(client['tvdb'].to('anidb').get( 71551))
     log.debug(client['tvdb'].to('anidb').get(103691))

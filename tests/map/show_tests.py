@@ -44,6 +44,10 @@ def test_matches_anidb_episode_timeline(client):
     assert client['tvdb'].to('anidb').map('232511', EpisodeIdentifier(1, 2, progress=100.0)) == EpisodeMatch({'anidb': '1491'}, 1, 1, progress=100.0)
 
 
+def test_matches_tvdb_movie(client):
+    assert client['anidb'].to('tvdb').map('2221') == EpisodeMatch({'tvdb': '112641'}, 0, 2)
+
+
 def test_matches_tvdb_episode(client):
     assert client['anidb'].to('tvdb').map('1', EpisodeIdentifier(1, 1)) == EpisodeMatch({'tvdb': '72025'}, 1, 1)
 
@@ -68,6 +72,10 @@ def test_matches_tvdb_episode_absolute(client):
 
 def test_matches_tvdb_episode_progress(client):
     assert client['anidb'].to('tvdb').map('5101', EpisodeIdentifier(1, 2, progress=59.5)) == EpisodeMatch({'tvdb': '80644'}, 1, 2, progress=59.5)
+
+
+def test_matches_tvdb_movie_progress(client):
+    assert client['anidb'].to('tvdb').map('2221', MovieIdentifier(progress=49)) == EpisodeMatch({'tvdb': '112641'}, 0, 2, progress=49)
 
 
 def test_matches_tvdb_episode_timeline(client):
@@ -118,12 +126,6 @@ def test_invalid_identifier(client):
 
     with pytest.raises(ValueError):
         client['anidb'].to('tvdb').map('202', EpisodeIdentifier(1, None))
-
-    with pytest.raises(ValueError):
-        assert client['anidb'].to('tvdb').map('1045', MovieIdentifier())
-
-    with pytest.raises(ValueError):
-        assert client['anidb'].to('tvdb').map('1045')
 
 
 def test_invalid_timeline(client):

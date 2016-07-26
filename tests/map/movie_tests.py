@@ -21,9 +21,33 @@ def test_matches_imdb_episode(client):
     assert client['anidb'].to('imdb').map('1045', EpisodeIdentifier(1, 1)) == MovieMatch({'imdb': 'tt1125254'})
 
 
+def test_matches_imdb_episode_part(client):
+    assert client['anidb'].to('imdb').map('7439', EpisodeIdentifier(1, 1)) == MovieMatch({'imdb': 'tt1754177'})
+    assert client['anidb'].to('imdb').map('7439', EpisodeIdentifier(1, 2)) == MovieMatch({'imdb': 'tt2231375'})
+
+
+def test_matches_imdb_episode_progress(client):
+    assert client['anidb'].to('imdb').map('1045', EpisodeIdentifier(1, 1, progress=49)) == MovieMatch({'imdb': 'tt1125254'}, progress=49)
+
+    assert client['anidb'].to('imdb').map('7439', EpisodeIdentifier(1, 1, progress=49)) == MovieMatch({'imdb': 'tt1754177'}, progress=49)
+    assert client['anidb'].to('imdb').map('7439', EpisodeIdentifier(1, 2, progress=64)) == MovieMatch({'imdb': 'tt2231375'}, progress=64)
+
+
 def test_matches_imdb_movie(client):
     assert client['anidb'].to('imdb').map('1043', MovieIdentifier()) == MovieMatch({'imdb': 'tt0142235'})
     assert client['anidb'].to('imdb').map('1045') == MovieMatch({'imdb': 'tt1125254'})
+
+
+def test_matches_imdb_movie_part(client):
+    assert client['anidb'].to('imdb').map('7439', MovieIdentifier(part=1)) == MovieMatch({'imdb': 'tt1754177'})
+    assert client['anidb'].to('imdb').map('7439', MovieIdentifier(part=2)) == MovieMatch({'imdb': 'tt2231375'})
+
+
+def test_matches_imdb_movie_progress(client):
+    assert client['anidb'].to('imdb').map('1043', MovieIdentifier(progress=49)) == MovieMatch({'imdb': 'tt0142235'}, progress=49)
+
+    assert client['anidb'].to('imdb').map('7439', MovieIdentifier(part=1, progress=49)) == MovieMatch({'imdb': 'tt1754177'}, progress=49)
+    assert client['anidb'].to('imdb').map('7439', MovieIdentifier(part=2, progress=64)) == MovieMatch({'imdb': 'tt2231375'}, progress=64)
 
 
 def test_matches_tmdb_movie(client):
